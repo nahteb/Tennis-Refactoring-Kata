@@ -12,7 +12,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == "player1")
+        if (playerName == player1Name)
             playerOneScore += 1;
         else
             playerTwoScore += 1;
@@ -20,46 +20,83 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         String score = "";
-        int tempScore=0;
         if (playerOneScore == playerTwoScore)
         {
-            switch (playerOneScore)
-            {
-                case 0:
-                        score = "Love-All";
-                    break;
-                case 1:
-                        score = "Fifteen-All";
-                    break;
-                case 2:
-                        score = "Thirty-All";
-                    break;
-                default:
-                        score = "Deuce";
-                    break;
-                
-            }
+            score = formatEvenScore();
         }
-        else if (playerOneScore >=4 || playerTwoScore >=4)
-        {
-            int minusResult = playerOneScore - playerTwoScore;
-            if (minusResult==1) score ="Advantage player1";
-            else if (minusResult ==-1) score ="Advantage player2";
-            else if (minusResult>=2) score = "Win for player1";
-            else score ="Win for player2";
+        else if (playerOneWins()) {
+            score = formatWin("player1");
+        }
+        else if (playerTwoWins()) {
+            score = formatWin("player2");
+        }
+        else if (playerOneAdvantage()) {
+            score = formatAdvantage("player1");
+        }
+
+        else if (playerTwoAdvantage()) {
+            score = formatAdvantage("player2");
         }
         else
         {
+            score = formatUnequalScore();
+        }
+        return score;
+    }
 
-            score += formatUnequalScore(playerOneScore);
-            score += "-";
-            score += formatUnequalScore(playerTwoScore);
+    private String formatUnequalScore() {
+        String score = formatScorePart(playerOneScore);
+        score += "-";
+        score += formatScorePart(playerTwoScore);
+        return score;
+    }
+
+    private String formatWin(String playerName) {
+        return "Win for " + playerName;
+    }
+
+    private String formatAdvantage(String playerName) {
+        return "Advantage " + playerName;
+    }
+
+    private boolean playerOneWins() {
+        return playerOneScore >=4 && (playerOneScore - playerTwoScore >= 2);
+    }
+
+    private boolean playerOneAdvantage() {
+        return playerOneScore >=4 && (playerOneScore - playerTwoScore == 1);
+    }
+
+    private boolean playerTwoWins() {
+        return playerTwoScore >=4 && (playerTwoScore - playerOneScore >= 2);
+    }
+
+    private boolean playerTwoAdvantage() {
+        return playerTwoScore >=4 && (playerTwoScore - playerOneScore == 1);
+    }
+
+    private String formatEvenScore() {
+        String score;
+        switch (playerOneScore)
+        {
+            case 0:
+                    score = "Love-All";
+                break;
+            case 1:
+                    score = "Fifteen-All";
+                break;
+            case 2:
+                    score = "Thirty-All";
+                break;
+            default:
+                    score = "Deuce";
+                break;
 
         }
         return score;
     }
 
-    private String formatUnequalScore(int score) {
+    private String formatScorePart(int score) {
         switch (score) {
             case 0:
                 return "Love";
