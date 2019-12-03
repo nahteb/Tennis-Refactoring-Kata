@@ -66,13 +66,13 @@ public class TennisTest {
         });
     }
 
-    public void checkAllScores(TennisGame game) {
+    public void checkAllScores(TennisGame game, String playerOneName, String playerTwoName) {
         int highestScore = Math.max(this.player1Score, this.player2Score);
         for (int i = 0; i < highestScore; i++) {
             if (i < this.player1Score)
-                game.wonPoint("player1");
+                game.wonPoint(playerOneName);
             if (i < this.player2Score)
-                game.wonPoint("player2");
+                game.wonPoint(playerTwoName);
         }
         assertEquals(this.expectedScore, game.getScore());
     }
@@ -80,19 +80,25 @@ public class TennisTest {
     @Test
     public void checkAllScoresTennisGame1() {
         TennisGame1 game = new TennisGame1("player1", "player2");
-        checkAllScores(game);
+        checkAllScores(game, "player1", "player2");
+    }
+
+    @Test
+    public void checkScoresDoNotDependOnName() {
+        TennisGame1 game = new TennisGame1("blah1", "blah2");
+        checkAllScores(game, "blah1", "blah2");
     }
 
     @Test
     public void checkAllScoresTennisGame2() {
         TennisGame2 game = new TennisGame2("player1", "player2");
-        checkAllScores(game);
+        checkAllScores(game, "player1", "player2");
     }
 
     @Test
     public void checkAllScoresTennisGame3() {
         TennisGame3 game = new TennisGame3("player1", "player2");
-        checkAllScores(game);
+        checkAllScores(game, "player1", "player2");
     }
 
 }
