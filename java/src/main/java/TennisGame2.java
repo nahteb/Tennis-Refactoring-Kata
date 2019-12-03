@@ -4,8 +4,8 @@ public class TennisGame2 implements TennisGame
     public int P1point = 0;
     public int P2point = 0;
     
-    public String P1res = "";
-    public String P2res = "";
+    public String player1Result = "";
+    public String player2Result = "";
     private String player1Name;
     private String player2Name;
 
@@ -16,8 +16,9 @@ public class TennisGame2 implements TennisGame
 
     public String getScore(){
         String score = "";
-        if (P1point == P2point && P1point < 4)
-        {
+        if (P1point==P2point && P1point>=3) {
+            score = "Deuce";
+        } else if (P1point == P2point) {
             if (P1point==0)
                 score = "Love";
             if (P1point==1)
@@ -26,57 +27,55 @@ public class TennisGame2 implements TennisGame
                 score = "Thirty";
             score += "-All";
         }
-        if (P1point==P2point && P1point>=3)
-            score = "Deuce";
         
         if (P1point > 0 && P2point==0)
         {
             if (P1point==1)
-                P1res = "Fifteen";
+                player1Result = "Fifteen";
             if (P1point==2)
-                P1res = "Thirty";
+                player1Result = "Thirty";
             if (P1point==3)
-                P1res = "Forty";
+                player1Result = "Forty";
             
-            P2res = "Love";
-            score = P1res + "-" + P2res;
+            player2Result = "Love";
+            score = player1Result + "-" + player2Result;
         }
         if (P2point > 0 && P1point==0)
         {
             if (P2point==1)
-                P2res = "Fifteen";
+                player2Result = "Fifteen";
             if (P2point==2)
-                P2res = "Thirty";
+                player2Result = "Thirty";
             if (P2point==3)
-                P2res = "Forty";
+                player2Result = "Forty";
             
-            P1res = "Love";
-            score = P1res + "-" + P2res;
+            player1Result = "Love";
+            score = player1Result + "-" + player2Result;
         }
         
         if (P1point>P2point && P1point < 4)
         {
             if (P1point==2)
-                P1res="Thirty";
+                player1Result ="Thirty";
             if (P1point==3)
-                P1res="Forty";
+                player1Result ="Forty";
             if (P2point==1)
-                P2res="Fifteen";
+                player2Result ="Fifteen";
             if (P2point==2)
-                P2res="Thirty";
-            score = P1res + "-" + P2res;
+                player2Result ="Thirty";
+            score = player1Result + "-" + player2Result;
         }
         if (P2point>P1point && P2point < 4)
         {
             if (P2point==2)
-                P2res="Thirty";
+                player2Result ="Thirty";
             if (P2point==3)
-                P2res="Forty";
+                player2Result ="Forty";
             if (P1point==1)
-                P1res="Fifteen";
+                player1Result ="Fifteen";
             if (P1point==2)
-                P1res="Thirty";
-            score = P1res + "-" + P2res;
+                player1Result ="Thirty";
+            score = player1Result + "-" + player2Result;
         }
         
         if (P1point > P2point && P2point >= 3)
